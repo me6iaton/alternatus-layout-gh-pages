@@ -1,0 +1,29 @@
+.app-vote
+  &__count
+    width: rem(78)
+    height: rem(64)
+    background-color: $brand-secondary
+    color: $brand-info
+    font-size: rem(22)
+    display: flex
+    align-items: center
+    justify-content: center
+  &__button
+    @include button ()
+    @include button-style($brand-info, auto)
+    font-size: rem(14)
+    padding: 0.45em 0.65em
+    margin-top: rem(8)
+    text-transform: none
+    border-radius: 0
+    width: rem(78)
+
+@media (max-width: $screen-sm-max)
+  .app-vote
+    &__count
+      width: rem(39)
+      height: rem(32)
+      font-size: rem(11)
+    &__button
+      font-size: rem(10)
+      width: rem(39)

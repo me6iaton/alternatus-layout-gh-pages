@@ -1,0 +1,71 @@
+.filter
+  min-height: 100px
+  background-color: $filter__primary___background-color
+  &__multicolumn
+    +column-count(4)
+    padding: 20px
+    .filter__checkbox
+      padding: 0 20px
+  &__checkbox
+    &:first-child .checkbox
+      margin-top: 0
+    label
+      color: $filter__checkbox___label-color
+    input[type="checkbox"] + label:before
+      color: $filter__checkbox___color
+    input[type="checkbox"]:checked + label, input[type="checkbox"]:checked + label:before
+      color: $filter__checkbox___checked-color
+  &__title
+    font-size: rem(18)
+    text-transform: uppercase
+    color: $filter__title___color
+    text-align: center
+    padding: rem(15) 0
+
+.filter--detail
+  @include flex-container
+  .filter
+    &__primary, &__secodary
+      padding-bottom: 20px
+      box-sizing: border-box
+      padding-left: rem(20)
+      padding-right: rem(20)
+    &__primary
+      @include column($fraction: '9/24', $gut: 0)
+      background-color: $filter__primary___background-color
+    &__secodary
+      @include column($fraction: '15/24')
+      background-color: $filter__secondary___background-color
+      flex-grow: 1
+    &__subs
+      padding-left: 0
+  .filter-subs
+    &__item
+      margin: 0
+      margin-bottom: 20px
+  .checkbox input[type="checkbox"] + label
+    white-space: normal
+
+// Small screen / tablet
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max)
+  .filter
+    &__title
+      font-size: rem(16)
+  .filter--detail
+    .filter
+      &__primary, &__secodary
+        padding-left: rem(10)
+        padding-right: rem(10)
+
+
+// Extra small screen / phone
+@media (min-width: $screen-xs-min) and (max-width: $screen-xs-max)
+  .filter
+    &__multicolumn
+      +column-count(3)
+
+// Extra Extra small screen
+@media (max-width: $screen-xs-min)
+  .filter
+    &__multicolumn
+      +column-count(2)

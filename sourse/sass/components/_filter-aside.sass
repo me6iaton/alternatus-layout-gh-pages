@@ -1,0 +1,41 @@
+$button-close__icon___color: #414446
+$button-close--detail__title___color: #202125
+$button-close--detail__icon___color: #a8aeb3
+
+.filter-aside
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  padding-top: rem(10)
+  &__title
+    margin-right: rem(10)
+    margin-top: rem(10)
+  @at-root .button-close
+    @include button
+    @include button-style($accent-bg, auto)
+    font-size: rem(14)
+    padding: 0.45em 0.65em
+    margin-top: rem(10)
+    margin-right: rem(10)
+    text-transform: none
+    &__icon
+      color: $button-close__icon___color
+      font-size: rem(14)
+      &::before
+        font-size: rem(12)
+    &__title
+      color: $filter__title___color
+      margin: 0 0.65em
+
+.filter-aside.filter-aside--detail
+  padding: $padding-base
+  .button-close
+    @include button-style($brand-secondary, auto)
+    &__icon
+      color: $button-close--detail__icon___color
+    &__title
+      color: $button-close--detail__title___color
+
+@media (max-width: $screen-xs-max)
+  .filter-aside--index
+    display: none

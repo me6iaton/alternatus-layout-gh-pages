@@ -1,0 +1,15 @@
+.checkbox
+  margin: rem(5) 0 0 0
+  input[type="checkbox"]
+    display: none
+  input[type="checkbox"] + label
+    white-space: nowrap
+    &:before
+      display: inline-block
+      margin-right: rem(7)
+      font-size: rem(14)
+      width: rem(14)
+      font-family: 'FontAwesome'
+      content: "\f096"
+  input[type="checkbox"]:checked + label:before
+    content: "\f046"

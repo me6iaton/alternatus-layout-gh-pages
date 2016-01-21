@@ -1,0 +1,20 @@
+.button {
+  @include button;
+  // Sizes
+  &--tiny     { font-size: map-get($button-sizes, tiny); }
+  &--small    { font-size: map-get($button-sizes, small); }
+  &--large    { font-size: map-get($button-sizes, large); }
+  // Colors
+  @each $name, $color in $button-colors {
+    &--#{$name} {
+      @include button-style($color, auto);
+    }
+  }
+  // icon
+  &__right-icon {
+    margin-left: rem(5)
+  }
+  &__left-icon {
+    margin-right: rem(5)
+  }
+}

@@ -1,0 +1,62 @@
+$altr-head--altr___background-color: #0097e6
+$altr-head--pssb___background-color: #9b5cd3
+
+.tabs-altr
+  &__nav
+    display: flex
+    @at-root .altr-head
+      display: flex
+      align-items: center
+      flex-wrap: wrap
+      flex-grow: 1
+      padding: rem(24) rem(20)
+      font-size: rem(20)
+      font-weight: 400
+      text-transform: uppercase
+      font-kerning: auto
+      color: $text-accent-color
+      position: relative
+      cursor: pointer
+      &__title
+        flex-grow: 1
+        &--short
+          display: none
+      &--active
+        &:after
+          content: ''
+          position: absolute
+          left: 50%
+          bottom: 0
+          margin-bottom: rem(-14)
+          margin-left: rem(-15)
+      &--altr
+        background-color: $altr-head--altr___background-color
+        &:after
+          @include triangle(rem(30), rem(15), down, $altr-head--altr___background-color)
+        .fa
+          font-size: rem(20)
+      &--pssb
+        background-color: $altr-head--pssb___background-color
+        &:after
+          @include triangle(rem(30), rem(15), down, $altr-head--pssb___background-color)
+        .fa-stack
+          font-size: rem(14)
+        .fa-stack-2x
+        .fa-stack-1x
+          color: $altr-head--pssb___background-color
+
+
+@media (max-width: $screen-sm-max)
+  .tabs-altr
+    &__nav
+      @at-root .altr-head
+        padding: rem(20) rem(16)
+        font-size: rem(18)
+        &__title
+          flex-grow: 1
+          &--long
+            display: none
+          &--short
+            display: inline-block
+        &__icon
+          display: none

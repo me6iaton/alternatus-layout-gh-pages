@@ -1,0 +1,32 @@
+.footer
+  min-height: 100px
+  display: flex
+  flex-wrap: wrap
+  align-items: stretch
+  background-color: $accent-bg
+  padding-bottom: 20px
+  color: #b6babf
+  &__info
+    display: flex
+    flex-direction: column
+    padding-top: 20px
+    @include column('6/24')
+  &__social-links
+    flex: 1
+    a
+      display: inline-block
+      font-size: rem(22)
+      margin-right: rem(14)
+      color: $filter__icon___color
+      &:hover
+        color: $text-accent-color
+  &__logo
+  &__copyright
+  &__filter-links
+
+@media (max-width: $screen-xs-max)
+  .footer
+    &__info
+      @include column('1/1')
+      order: 0
+      padding-left: 40px

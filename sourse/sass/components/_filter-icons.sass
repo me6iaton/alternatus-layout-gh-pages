@@ -1,0 +1,20 @@
+$filter-icons__item___color: #9c9c9c
+
+.filter-icons
+  display: flex
+  flex-wrap: wrap
+  &__group
+    @include button
+    @include button-style($brand-secondary, auto)
+    font-size: 14px
+    padding: 0.45em 0.65em
+    margin-top: rem(5)
+    margin-right: rem(10)
+    text-transform: none
+  &__item
+    margin-right: rem(5)
+    &::before
+      color: $filter-icons__item___color
+    &--active
+      &::before
+        color: $brand-primary

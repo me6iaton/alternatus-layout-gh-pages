@@ -1,0 +1,66 @@
+.tabs
+  @include flex-container
+  &__nav
+    @include column($fraction: '4/24', $gut: 0px)
+    box-sizing: border-box
+    padding: 20px 20px 20px 45px
+    background-color: $filter__primary___background-color
+  &__title
+    font-size: 18px
+    text-transform: uppercase
+    margin-top: 10px
+    border-bottom: 1px solid $filter__primary___background-color
+    a
+      color: $filter__title___color
+    &:first-child
+      margin-top: 0px
+    &--active
+      a
+        color: $filter__checkbox___checked-color
+        &:after
+          margin-left: 5px
+          font-family: 'FontAwesome'
+          content: "\f0da"
+  &__content
+    @include column($fraction: '20/24')
+    position: relative
+  &__panel
+    background-color: $filter__secondary___background-color
+    padding-bottom: 20px
+    &:first-child
+      z-index: 1
+    &--active
+      z-index: 2
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max)
+  .tabs
+    &__nav
+      padding: 20px 20px 20px 20px
+    &__title
+      font-size: 14px
+
+
+@media (max-width: $screen-xs-max)
+  .tabs
+    flex-direction: column
+    &__nav
+      display: flex
+      flex-wrap: wrap
+      @include column($fraction: '1/1')
+      padding: 0
+    &__title
+      flex-grow: 1
+      margin: 0
+      font-size: 15px
+      padding: 12px 10px
+      border-bottom-color: #343638
+      &--active
+        background-color: $filter__secondary___background-color
+        border-bottom-color: $filter__secondary___background-color
+        a:after
+          display: none
+      a
+        display: block
+        text-align: center
+    &__content
+      @include column($fraction: '1/1')

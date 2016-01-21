@@ -1,0 +1,32 @@
+$app-preview__sections___color: #868686
+
+.app-preview
+  display: flex
+  &__icon
+    flex: 0 0 56px
+    margin-right: 20px
+    img
+      @include img-responsive
+  &__content
+    flex: 1 1 auto
+  &__title
+    margin: 0
+  &__sections, &__desc, &__tags
+    margin-top: rem(5)
+  &__sections
+    color: $app-preview__sections___color
+  &__desc
+    //
+  &__buttons
+    .button
+      margin-top: rem(14)
+      margin-right: rem(10)
+  &__tags
+    font-size: rem(12)
+
+@media (max-width: $screen-sm-max)
+  .app-preview
+    &--altr
+      .app-preview
+        &__desc, &__tags
+          display: none

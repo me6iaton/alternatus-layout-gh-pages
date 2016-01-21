@@ -1,0 +1,72 @@
+// ============================================================================
+// TEXTFIELD
+// ============================================================================
+
+.form__textfield {
+  display: block;
+  position: relative;
+  > label {
+    // Positioning
+    position: absolute;
+    top: 0;
+
+    // Display
+    display: block;
+    width: 100%;
+
+    // Other
+    color: $text-color;
+    font-size: 18px;
+    font-weight: 700;
+    // line-height: $xFormLabelLineHeight;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  > textarea {
+    padding-top: 5px;
+    // min-height
+    height: auto;  // Reset height for <textarea>s
+  }
+
+  > input,
+  > textarea {
+
+    display: block;
+    &:focus ~ label {
+      // color
+    }
+    font-size: 18px;
+    font-weight: 700;
+    color: $text-color;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #b8bbbe;
+    outline: none;
+    height: 32px;
+    width: 100%;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0px;
+    // Bugfix for firefox-android
+    background-image: none;
+
+    &:focus {
+      // border-color
+    }
+
+    &:disabled,
+    &:read-only {
+      // cursor
+      // background-color
+      opacity: 1;  // iOS fix for unreadable disabled content
+    }
+  }
+
+  @include placeholder {
+    font-size: 18px;
+    font-weight: 700;
+    color: $text-color;
+  }
+}

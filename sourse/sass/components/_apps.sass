@@ -1,0 +1,22 @@
+.apps
+  @include flex-container
+  padding-top: 50px
+  &__main
+    @include column('16/24')
+  &__aside
+    @include column('8/24')
+
+// Small screen / tablet
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max)
+  .apps
+    &__main
+      @include column('12/24')
+    &__aside
+      @include column('12/24')
+
+@media (max-width: $screen-xs-max)
+  .apps
+    &__main
+      @include column('24/24')
+    &__aside
+      display: none

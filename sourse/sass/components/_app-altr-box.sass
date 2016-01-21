@@ -1,0 +1,45 @@
+$app-altr-box___height: 58px
+$app-altr-box___border-color: #e5e7e9
+$app-altr-box__title___color: #97999d
+$app-altr-box__count___color: #007aff
+
+.app-altr-box
+  height: $app-altr-box___height
+  border: 2px solid $app-altr-box___border-color
+  border-radius: 25px / 50%
+  display: flex
+  margin-top: 15px
+  padding: 5px 20px
+  align-items: center
+  &__title
+    flex: 0 0 rem(60)
+    margin-right: 10px
+    color: $app-altr-box__title___color
+    font-size: 12px
+  &__list
+    display: flex
+    flex: 1 1 auto
+    flex-wrap: wrap
+    justify-content: center
+    height: $app-altr-box___height
+    overflow: hidden
+  &__item
+    display: flex
+    flex: 0 0 50px
+    height: $app-altr-box___height
+    align-items: center
+    margin-right: 10px
+    img
+      @include img-responsive
+  &__count
+    flex: 0 0 31px
+    color: $app-altr-box__count___color
+    font-weight: 700
+    font-size: 12px
+    span:last-child
+      display: block
+      font-weight: 900
+      font-size: 14px
+      transform: scaleX(1.5)
+      position: relative
+      left: 10px

@@ -1,0 +1,23 @@
+.container
+  box-sizing: border-box
+  background-color: $body-bg
+  padding-left: 25px
+  padding-right: 25px
+  max-width: 1232px
+  width: 100%
+  margin-left: auto
+  margin-right: auto
+  &--nopad
+    padding-left: 0
+    padding-right: 0
+  &--main
+    padding-bottom: 100px
+    flex-grow: 1
+  &--accent
+    background-color: $accent-bg
+
+@media (max-width: $screen-xs-max)
+  .container
+    &--xs-nopad
+      padding-left: 0
+      padding-right: 0

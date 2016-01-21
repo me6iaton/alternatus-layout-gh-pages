@@ -1,0 +1,25 @@
+$search-head__input___background-color: #33363a
+
+.search-head
+  flex: 1 1 auto
+  padding: 0 rem(35)
+  &__input
+    position: relative
+    input
+      background-color: $search-head__input___background-color
+      border: 0px
+      padding: rem(5) rem(10) rem(5) rem(34)
+      border-radius: 14px / 50%
+    &:before
+      position: absolute
+      left: rem(10)
+      top: rem(3)
+      font-family: 'FontAwesome'
+      content: "\f002"
+      color: $filter__title___color
+    @include placeholder
+      text-align: right
+
+@media (max-width: $screen-xs-max)
+  .search-head
+    display: none
