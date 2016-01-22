@@ -4327,6 +4327,8 @@ a:hover, a:focus {
   align-items: center;
   padding: 16px 20px;
   color: #fff;
+  background: url("../static/images/card-head--84x75.png") left top no-repeat;
+  background-size: auto 100%;
 }
 
 .card-head--info {
@@ -4491,7 +4493,7 @@ a:hover, a:focus {
 .app-altr-box {
   height: 58px;
   border: 2px solid #e5e7e9;
-  border-radius: 25px / 50%;
+  border-radius: 35px / 50%;
   display: flex;
   margin-top: 15px;
   padding: 5px 20px;

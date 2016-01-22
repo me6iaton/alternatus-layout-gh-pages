@@ -1,19 +1,20 @@
 (function () {
   'use strict';
 
-  var babelHelpers_typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  var babelHelpers = {};
+  babelHelpers.typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
     return typeof obj;
   } : function (obj) {
     return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
   };
 
-  var babelHelpers_classCallCheck = function (instance, Constructor) {
+  babelHelpers.classCallCheck = function (instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
     }
   };
 
-  var babelHelpers_createClass = function () {
+  babelHelpers.createClass = function () {
     function defineProperties(target, props) {
       for (var i = 0; i < props.length; i++) {
         var descriptor = props[i];
@@ -31,7 +32,7 @@
     };
   }();
 
-  var babelHelpers_defineProperty = function (obj, key, value) {
+  babelHelpers.defineProperty = function (obj, key, value) {
     if (key in obj) {
       Object.defineProperty(obj, key, {
         value: value,
@@ -46,7 +47,7 @@
     return obj;
   };
 
-  var babelHelpers_extends = Object.assign || function (target) {
+  babelHelpers.extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
 
@@ -60,7 +61,7 @@
     return target;
   };
 
-  var babelHelpers_inherits = function (subClass, superClass) {
+  babelHelpers.inherits = function (subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
       throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -76,7 +77,7 @@
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
   };
 
-  var babelHelpers_possibleConstructorReturn = function (self, call) {
+  babelHelpers.possibleConstructorReturn = function (self, call) {
     if (!self) {
       throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
@@ -84,7 +85,7 @@
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
   };
 
-  var babelHelpers_toConsumableArray = function (arr) {
+  babelHelpers.toConsumableArray = function (arr) {
     if (Array.isArray(arr)) {
       for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
 
@@ -93,6 +94,8 @@
       return Array.from(arr);
     }
   };
+
+  babelHelpers;
 
 
   function __commonjs(fn, module) { return module = { exports: {} }, fn(module, module.exports), module.exports; }
@@ -121,7 +124,7 @@
    * @returns {boolean} True if the argument appears to be a plain object.
    */
   function isPlainObject(obj) {
-    if (!obj || (typeof obj === 'undefined' ? 'undefined' : babelHelpers_typeof(obj)) !== 'object') {
+    if (!obj || (typeof obj === 'undefined' ? 'undefined' : babelHelpers.typeof(obj)) !== 'object') {
       return false;
     }
 
@@ -468,9 +471,9 @@
         chain = middlewares.map(function (middleware) {
           return middleware(middlewareAPI);
         });
-        _dispatch = compose.apply(undefined, babelHelpers_toConsumableArray(chain))(store.dispatch);
+        _dispatch = compose.apply(undefined, babelHelpers.toConsumableArray(chain))(store.dispatch);
 
-        return babelHelpers_extends({}, store, {
+        return babelHelpers.extends({}, store, {
           dispatch: _dispatch
         });
       };
@@ -490,7 +493,7 @@
 
     switch (action.type) {
       case SHOW_TAB:
-        return Object.assign({}, state, babelHelpers_defineProperty({}, action.name, action.index));
+        return Object.assign({}, state, babelHelpers.defineProperty({}, action.name, action.index));
       default:
         return state;
     }
@@ -536,126 +539,156 @@
 
   function createLogger() {
     var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+    var _options$level = options.level;
+    var level = _options$level === undefined ? "log" : _options$level;
+    var _options$logger = options.logger;
+    var logger = _options$logger === undefined ? window.console : _options$logger;
+    var _options$logErrors = options.logErrors;
+    var logErrors = _options$logErrors === undefined ? true : _options$logErrors;
+    var collapsed = options.collapsed;
+    var predicate = options.predicate;
+    var _options$duration = options.duration;
+    var duration = _options$duration === undefined ? false : _options$duration;
+    var _options$timestamp = options.timestamp;
+    var timestamp = _options$timestamp === undefined ? true : _options$timestamp;
+    var transformer = options.transformer;
+    var _options$stateTransfo = options.stateTransformer;
+    var // deprecated
+    stateTransformer = _options$stateTransfo === undefined ? function (state) {
+      return state;
+    } : _options$stateTransfo;
+    var _options$actionTransf = options.actionTransformer;
+    var actionTransformer = _options$actionTransf === undefined ? function (actn) {
+      return actn;
+    } : _options$actionTransf;
+    var _options$errorTransfo = options.errorTransformer;
+    var errorTransformer = _options$errorTransfo === undefined ? function (error) {
+      return error;
+    } : _options$errorTransfo;
+    var _options$colors = options.colors;
+    var colors = _options$colors === undefined ? {
+      title: function title() {
+        return "#000000";
+      },
+      prevState: function prevState() {
+        return "#9E9E9E";
+      },
+      action: function action() {
+        return "#03A9F4";
+      },
+      nextState: function nextState() {
+        return "#4CAF50";
+      },
+      error: function error() {
+        return "#F20404";
+      }
+    } : _options$colors;
+
+    // exit if console undefined
+
+    if (typeof logger === "undefined") {
+      return function () {
+        return function (next) {
+          return function (action) {
+            return next(action);
+          };
+        };
+      };
+    }
+
+    if (transformer) {
+      console.error("Option 'transformer' is deprecated, use stateTransformer instead");
+    }
+
+    var logBuffer = [];
+    function printBuffer() {
+      logBuffer.forEach(function (logEntry, key) {
+        var started = logEntry.started;
+        var action = logEntry.action;
+        var prevState = logEntry.prevState;
+        var error = logEntry.error;
+        var took = logEntry.took;
+        var nextState = logEntry.nextState;
+
+        var nextEntry = logBuffer[key + 1];
+        if (nextEntry) {
+          nextState = nextEntry.prevState;
+          took = nextEntry.started - started;
+        }
+        // message
+        var formattedAction = actionTransformer(action);
+        var time = new Date(started);
+        var isCollapsed = typeof collapsed === "function" ? collapsed(function () {
+          return nextState;
+        }, action) : collapsed;
+
+        var formattedTime = formatTime(time);
+        var titleCSS = colors.title ? "color: " + colors.title(formattedAction) + ";" : null;
+        var title = "action " + formattedAction.type + (timestamp ? formattedTime : "") + (duration ? " in " + took.toFixed(2) + " ms" : "");
+
+        // render
+        try {
+          if (isCollapsed) {
+            if (colors.title) logger.groupCollapsed("%c " + title, titleCSS);else logger.groupCollapsed(title);
+          } else {
+            if (colors.title) logger.group("%c " + title, titleCSS);else logger.group(title);
+          }
+        } catch (e) {
+          logger.log(title);
+        }
+
+        if (colors.prevState) logger[level]("%c prev state", "color: " + colors.prevState(prevState) + "; font-weight: bold", prevState);else logger[level]("prev state", prevState);
+
+        if (colors.action) logger[level]("%c action", "color: " + colors.action(formattedAction) + "; font-weight: bold", formattedAction);else logger[level]("action", formattedAction);
+
+        if (error) {
+          if (colors.error) logger[level]("%c error", "color: " + colors.error(error, prevState) + "; font-weight: bold", error);else logger[level]("error", error);
+        }
+
+        if (colors.nextState) logger[level]("%c next state", "color: " + colors.nextState(nextState) + "; font-weight: bold", nextState);else logger[level]("next state", nextState);
+
+        try {
+          logger.groupEnd();
+        } catch (e) {
+          logger.log("—— log end ——");
+        }
+      });
+      logBuffer.length = 0;
+    }
 
     return function (_ref) {
       var getState = _ref.getState;
       return function (next) {
         return function (action) {
-          var _options$level = options.level;
-          var level = _options$level === undefined ? "log" : _options$level;
-          var _options$logger = options.logger;
-          var logger = _options$logger === undefined ? window.console : _options$logger;
-          var _options$logErrors = options.logErrors;
-          var logErrors = _options$logErrors === undefined ? true : _options$logErrors;
-          var collapsed = options.collapsed;
-          var predicate = options.predicate;
-          var _options$duration = options.duration;
-          var duration = _options$duration === undefined ? false : _options$duration;
-          var _options$timestamp = options.timestamp;
-          var timestamp = _options$timestamp === undefined ? true : _options$timestamp;
-          var transformer = options.transformer;
-          var _options$stateTransfo = options.stateTransformer;
-          var // deprecated
-          stateTransformer = _options$stateTransfo === undefined ? function (state) {
-            return state;
-          } : _options$stateTransfo;
-          var _options$actionTransf = options.actionTransformer;
-          var actionTransformer = _options$actionTransf === undefined ? function (actn) {
-            return actn;
-          } : _options$actionTransf;
-          var _options$errorTransfo = options.errorTransformer;
-          var errorTransformer = _options$errorTransfo === undefined ? function (error) {
-            return error;
-          } : _options$errorTransfo;
-          var _options$colors = options.colors;
-          var colors = _options$colors === undefined ? {
-            title: function title() {
-              return "#000000";
-            },
-            prevState: function prevState() {
-              return "#9E9E9E";
-            },
-            action: function action() {
-              return "#03A9F4";
-            },
-            nextState: function nextState() {
-              return "#4CAF50";
-            },
-            error: function error() {
-              return "#F20404";
-            }
-          } : _options$colors;
-
-          // exit if console undefined
-
-          if (typeof logger === "undefined") {
-            return next(action);
-          }
-
           // exit early if predicate function returns false
           if (typeof predicate === "function" && !predicate(getState, action)) {
             return next(action);
           }
 
-          if (transformer) {
-            console.error("Option 'transformer' is deprecated, use stateTransformer instead");
-          }
+          var logEntry = {};
+          logBuffer.push(logEntry);
 
-          var started = timer.now();
-          var prevState = stateTransformer(getState());
+          logEntry.started = timer.now();
+          logEntry.prevState = stateTransformer(getState());
+          logEntry.action = action;
 
-          var formattedAction = actionTransformer(action);
           var returnedValue = undefined;
-          var error = undefined;
           if (logErrors) {
             try {
               returnedValue = next(action);
             } catch (e) {
-              error = errorTransformer(e);
+              logEntry.error = errorTransformer(e);
             }
           } else {
             returnedValue = next(action);
           }
 
-          var took = timer.now() - started;
-          var nextState = stateTransformer(getState());
+          logEntry.took = timer.now() - logEntry.started;
+          logEntry.nextState = stateTransformer(getState());
 
-          // message
-          var time = new Date();
-          var isCollapsed = typeof collapsed === "function" ? collapsed(getState, action) : collapsed;
+          printBuffer();
 
-          var formattedTime = formatTime(time);
-          var titleCSS = colors.title ? "color: " + colors.title(formattedAction) + ";" : null;
-          var title = "action " + formattedAction.type + (timestamp ? formattedTime : "") + (duration ? " in " + took.toFixed(2) + " ms" : "");
-
-          // render
-          try {
-            if (isCollapsed) {
-              if (colors.title) logger.groupCollapsed("%c " + title, titleCSS);else logger.groupCollapsed(title);
-            } else {
-              if (colors.title) logger.group("%c " + title, titleCSS);else logger.group(title);
-            }
-          } catch (e) {
-            logger.log(title);
-          }
-
-          if (colors.prevState) logger[level]("%c prev state", "color: " + colors.prevState(prevState) + "; font-weight: bold", prevState);else logger[level]("prev state", prevState);
-
-          if (colors.action) logger[level]("%c action", "color: " + colors.action(formattedAction) + "; font-weight: bold", formattedAction);else logger[level]("action", formattedAction);
-
-          if (error) {
-            if (colors.error) logger[level]("%c error", "color: " + colors.error(error, prevState) + "; font-weight: bold", error);else logger[level]("error", error);
-          } else {
-            if (colors.nextState) logger[level]("%c next state", "color: " + colors.nextState(nextState) + "; font-weight: bold", nextState);else logger[level]("next state", nextState);
-          }
-
-          try {
-            logger.groupEnd();
-          } catch (e) {
-            logger.log("—— log end ——");
-          }
-
-          if (error) throw error;
+          if (logEntry.error) throw logEntry.error;
           return returnedValue;
         };
       };
@@ -705,7 +738,7 @@
       return typeof dep === 'function';
     })) {
       var dependencyTypes = dependencies.map(function (dep) {
-        return typeof dep === 'undefined' ? 'undefined' : babelHelpers_typeof(dep);
+        return typeof dep === 'undefined' ? 'undefined' : babelHelpers.typeof(dep);
       }).join(', ');
       throw new Error('Selector creators expect all input-selectors to be functions, ' + ('instead received the following types: [' + dependencyTypes + ']'));
     }
@@ -740,7 +773,7 @@
         var params = dependencies.map(function (dependency) {
           return dependency.apply(undefined, [state, props].concat(args));
         });
-        return memoizedResultFunc.apply(undefined, babelHelpers_toConsumableArray(params));
+        return memoizedResultFunc.apply(undefined, babelHelpers.toConsumableArray(params));
       };
 
       selector.recomputations = function () {
@@ -774,14 +807,14 @@
 
   var Component = function () {
     function Component(store) {
-      babelHelpers_classCallCheck(this, Component);
+      babelHelpers.classCallCheck(this, Component);
 
       this.store = store;
       this.dispatch = store.dispatch;
       this.storeObserver = observeStore(store, this.selector.bind(this), this.render.bind(this));
     }
 
-    babelHelpers_createClass(Component, [{
+    babelHelpers.createClass(Component, [{
       key: "init",
       value: function init() {
         this.storeObserver.handleChange();
@@ -796,7 +829,7 @@
   // $.bind(document);
 
   var Tab = function (_Component) {
-    babelHelpers_inherits(Tab, _Component);
+    babelHelpers.inherits(Tab, _Component);
 
     function Tab(_ref) {
       var store = _ref.store;
@@ -808,9 +841,9 @@
       } : _ref$selectors;
       var _ref$activeClass = _ref.activeClass;
       var activeClass = _ref$activeClass === undefined ? 'tabs__title--active' : _ref$activeClass;
-      babelHelpers_classCallCheck(this, Tab);
+      babelHelpers.classCallCheck(this, Tab);
 
-      var _this = babelHelpers_possibleConstructorReturn(this, Object.getPrototypeOf(Tab).call(this, store));
+      var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(Tab).call(this, store));
 
       _this.name = name;
       _this.activeClass = activeClass;
@@ -832,7 +865,7 @@
       return _this;
     }
 
-    babelHelpers_createClass(Tab, [{
+    babelHelpers.createClass(Tab, [{
       key: 'selector',
       value: function selector(state) {
         var _this2 = this;
