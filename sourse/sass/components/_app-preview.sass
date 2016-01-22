@@ -1,4 +1,5 @@
 $app-preview__sections___color: #868686
+$app-preview__star___color:  #d6d6d6
 
 .app-preview
   display: flex
@@ -11,18 +12,53 @@ $app-preview__sections___color: #868686
     flex: 1 1 auto
   &__title
     margin: 0
-  &__sections, &__desc, &__tags
-    margin-top: rem(5)
   &__sections
     color: $app-preview__sections___color
-  &__desc
-    //
+  &__sections, &__desc, &__tags
+    margin-top: rem(5)
+  &__tags
+    font-size: rem(12)
   &__buttons
     .button
       margin-top: rem(14)
       margin-right: rem(10)
   &__tags
     font-size: rem(12)
+
+.app-preview--user-stts
+  .app-preview
+    &__content
+      display: flex
+      flex-wrap: wrap
+    &__head
+      @include column('20/24', $gut:0)
+    &__user-stts
+      @include column('4/24',  $gut:0)
+      justify-content: flex-end
+      display: flex
+    &__star
+      font-weight: 700
+      span:first-child
+      span:last-child
+        margin-left: rem(5)
+        &::before
+          color: $app-preview__star___color
+    &__desc
+      @include column('24/24',  $gut: 0)
+    &__tags
+     @include column('24/24', $gut: 0)
+
+.app-preview--detail
+    .app-preview
+      &__head
+        @include column('18/24', $gut:0)
+      &__user-stts
+        @include column('6/24',  $gut:0)
+        div
+          margin-right: rem(10)
+      &__like
+        span:first-child
+          margin-right: rem(3)
 
 @media (max-width: $screen-sm-max)
   .app-preview

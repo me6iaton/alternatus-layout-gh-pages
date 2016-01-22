@@ -3717,6 +3717,7 @@ a:hover, a:focus {
   align-items: center;
   flex-wrap: wrap;
   flex-grow: 1;
+  width: 50%;
   padding: 1.5rem 1.25rem;
   font-size: 1.25rem;
   font-weight: 400;
@@ -4182,11 +4183,15 @@ a:hover, a:focus {
 }
 
 .filter-icons__item::before {
-  color: #9c9c9c;
+  color: #007aff;
 }
 
-.filter-icons__item--active::before {
-  color: #007aff;
+.filter-icons__item--type {
+  margin-right: 0.625rem;
+}
+
+.filter-icons__item--type::before {
+  color: #9c9c9c;
 }
 
 .apps {
@@ -4315,6 +4320,12 @@ a:hover, a:focus {
   }
   .apps-grid__col:nth-child(1n) {
     margin-right: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .apps-grid__col {
+    margin-top: 0px;
   }
 }
 
@@ -4467,12 +4478,16 @@ a:hover, a:focus {
   margin: 0;
 }
 
+.app-preview__sections {
+  color: #868686;
+}
+
 .app-preview__sections, .app-preview__desc, .app-preview__tags {
   margin-top: 0.3125rem;
 }
 
-.app-preview__sections {
-  color: #868686;
+.app-preview__tags {
+  font-size: 0.75rem;
 }
 
 .app-preview__buttons .button {
@@ -4484,6 +4499,135 @@ a:hover, a:focus {
   font-size: 0.75rem;
 }
 
+.app-preview--user-stts .app-preview__content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.app-preview--user-stts .app-preview__head {
+  width: calc(99.999999% * 20/24);
+  flex: 0 0 auto;
+}
+
+.app-preview--user-stts .app-preview__head:nth-child(n) {
+  margin-right: 0;
+}
+
+.app-preview--user-stts .app-preview__head:last-child {
+  margin-right: 0;
+}
+
+.app-preview--user-stts .app-preview__head:nth-child(24n) {
+  margin-right: 0;
+}
+
+.app-preview--user-stts .app-preview__user-stts {
+  width: calc(99.999999% * 4/24);
+  flex: 0 0 auto;
+  justify-content: flex-end;
+  display: flex;
+}
+
+.app-preview--user-stts .app-preview__user-stts:nth-child(n) {
+  margin-right: 0;
+}
+
+.app-preview--user-stts .app-preview__user-stts:last-child {
+  margin-right: 0;
+}
+
+.app-preview--user-stts .app-preview__user-stts:nth-child(24n) {
+  margin-right: 0;
+}
+
+.app-preview--user-stts .app-preview__star {
+  font-weight: 700;
+}
+
+.app-preview--user-stts .app-preview__star span:last-child {
+  margin-left: 0.3125rem;
+}
+
+.app-preview--user-stts .app-preview__star span:last-child::before {
+  color: #d6d6d6;
+}
+
+.app-preview--user-stts .app-preview__desc {
+  width: calc(99.999999% * 24/24);
+  flex: 0 0 auto;
+}
+
+.app-preview--user-stts .app-preview__desc:nth-child(n) {
+  margin-right: 0;
+}
+
+.app-preview--user-stts .app-preview__desc:last-child {
+  margin-right: 0;
+}
+
+.app-preview--user-stts .app-preview__desc:nth-child(24n) {
+  margin-right: 0;
+}
+
+.app-preview--user-stts .app-preview__tags {
+  width: calc(99.999999% * 24/24);
+  flex: 0 0 auto;
+}
+
+.app-preview--user-stts .app-preview__tags:nth-child(n) {
+  margin-right: 0;
+}
+
+.app-preview--user-stts .app-preview__tags:last-child {
+  margin-right: 0;
+}
+
+.app-preview--user-stts .app-preview__tags:nth-child(24n) {
+  margin-right: 0;
+}
+
+.app-preview--detail .app-preview__head {
+  width: calc(99.999999% * 18/24);
+  flex: 0 0 auto;
+}
+
+.app-preview--detail .app-preview__head:nth-child(n) {
+  margin-right: 0;
+}
+
+.app-preview--detail .app-preview__head:last-child {
+  margin-right: 0;
+}
+
+.app-preview--detail .app-preview__head:nth-child(24n) {
+  margin-right: 0;
+}
+
+.app-preview--detail .app-preview__user-stts {
+  width: calc(99.999999% * 6/24);
+  flex: 0 0 auto;
+}
+
+.app-preview--detail .app-preview__user-stts:nth-child(n) {
+  margin-right: 0;
+}
+
+.app-preview--detail .app-preview__user-stts:last-child {
+  margin-right: 0;
+}
+
+.app-preview--detail .app-preview__user-stts:nth-child(24n) {
+  margin-right: 0;
+}
+
+.app-preview--detail .app-preview__user-stts div {
+  margin-right: 0.625rem;
+}
+
+.app-preview--detail .app-preview__like span:first-child {
+  margin-right: 0.1875rem;
+}
+
 @media (max-width: 991px) {
   .app-preview--altr .app-preview__desc, .app-preview--altr .app-preview__tags {
     display: none;
@@ -4491,7 +4635,7 @@ a:hover, a:focus {
 }
 
 .app-altr-box {
-  height: 58px;
+  height: 54px;
   border: 2px solid #e5e7e9;
   border-radius: 35px / 50%;
   display: flex;
@@ -4505,6 +4649,7 @@ a:hover, a:focus {
   margin-right: 10px;
   color: #97999d;
   font-size: 12px;
+  line-height: 0.875rem;
 }
 
 .app-altr-box__list {
@@ -4512,14 +4657,14 @@ a:hover, a:focus {
   flex: 1 1 auto;
   flex-wrap: wrap;
   justify-content: center;
-  height: 58px;
+  height: 54px;
   overflow: hidden;
 }
 
 .app-altr-box__item {
   display: flex;
   flex: 0 0 50px;
-  height: 58px;
+  height: 54px;
   align-items: center;
   margin-right: 10px;
 }
