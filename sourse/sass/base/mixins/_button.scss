@@ -41,7 +41,8 @@ $button-colors: (
   success: #7ccd6e,
   info: $brand-info,
   warning: $brand-warning,
-  danger: #ff3a2b
+  danger: #ff3a2b,
+  actions: #b3c3d3
 );
 
 
@@ -81,12 +82,14 @@ $button-colors: (
     $background-hover: scale-color($background, $lightness: -20%);
   }
 
-  @if lightness($background) >= 70% {
-    $color: $button-color-altr;
-  }
-  @else {
-    $color: $button-color;
-  }
+  $color: $button-color;
+
+  // @if lightness($background) >= 70% {
+  //   $color: $button-color-altr;
+  // }
+  // @else {
+  //   $color: $button-color;
+  // }
 
   background-color: $background;
   color: $color;

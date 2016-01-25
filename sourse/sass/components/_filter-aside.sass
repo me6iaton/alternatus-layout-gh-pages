@@ -1,6 +1,7 @@
 $button-close__icon___color: #414446
 $button-close--detail__title___color: #202125
 $button-close--detail__icon___color: #a8aeb3
+$filter-aside__show-more___color: #f2392b
 
 .filter-aside
   display: flex
@@ -35,6 +36,11 @@ $button-close--detail__icon___color: #a8aeb3
       color: $button-close--detail__icon___color
     &__title
       color: $button-close--detail__title___color
+  .filter-aside__show-more
+    margin-right: rem(10)
+    margin-top: rem(10)
+    a
+      color: $filter-aside__show-more___color
 
 @media (max-width: $screen-xs-max)
   .filter-aside--index
